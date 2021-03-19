@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-const blogPostSchema = mongoose.Schema({
+const postSchema = mongoose.Schema({
     title: String,
-    content: String,
+    message: String,
     creator: String,
     name: String,
     tags: [String],
-    headerImage: String,
+    selectedFile: String,
     likes: {
         type: [String],
         default: []
@@ -17,6 +17,6 @@ const blogPostSchema = mongoose.Schema({
     }
 });
 
-const BlogPost = mongoose.model('blogPost', blogPostSchema);
+const PostMessage = mongoose.model('postMessage', postSchema);
 
-export default BlogPost;
+export default PostMessage;
