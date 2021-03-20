@@ -1,9 +1,11 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes.js'
+import { FETCH_ALL, FETCH, CREATE, UPDATE, DELETE } from '../constants/actionTypes.js'
 
-export default (posts = [], action) => {
+const postReducer = (posts = [], action) => {
     switch(action.type) {
         case FETCH_ALL:
             return action.payload;
+        case FETCH:
+            return [...posts, action.payload];
         case CREATE:
             return [...posts, action.payload];
         case UPDATE:
@@ -14,3 +16,5 @@ export default (posts = [], action) => {
             return posts;
     }
 }
+
+export default postReducer;

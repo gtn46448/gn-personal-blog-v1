@@ -7,6 +7,7 @@ import useStyles from './styles';
 
 const Posts = ({ setCurrentId }) => {
     const posts = useSelector((state) => state.posts);
+
     const classes = useStyles();
 
     return(
@@ -14,7 +15,7 @@ const Posts = ({ setCurrentId }) => {
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
                 {
                     posts.map((post) => (
-                        <Grid key={post._id} item xs={12} sm={6}>
+                        <Grid key={post._id} item xs={12} md={3} sm={4}>
                             <Post post={post} setCurrentId={setCurrentId} />
                         </Grid>
                     ))

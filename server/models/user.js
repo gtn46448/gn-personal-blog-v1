@@ -15,6 +15,11 @@ const userSchema = mongoose.Schema({
     },
     id: {
         type: String
+    },
+    accountType: {
+        type: String,
+        default: 'viewer',
+        enum: ['viewer', 'creator'],
     }
 });
 
