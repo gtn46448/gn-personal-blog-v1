@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux';
 import Post from './Post/Post.js';
 import useStyles from './styles';
 
-const Posts = ({ setCurrentId }) => {
-    const posts = useSelector((state) => state.posts);
+const Posts = () => {
+    const posts = useSelector((state) => state.posts).sort((a, b) => {
+        return a.createdAt < b.createdAt ? 1: -1
+    });
 
     const classes = useStyles();
 
@@ -16,7 +18,7 @@ const Posts = ({ setCurrentId }) => {
                 {
                     posts.map((post) => (
                         <Grid key={post._id} item xs={12} md={3} sm={4}>
-                            <Post post={post} setCurrentId={setCurrentId} />
+                            <Post post={post} />
                         </Grid>
                     ))
                 }

@@ -5,7 +5,7 @@ const postReducer = (posts = [], action) => {
         case FETCH_ALL:
             return action.payload;
         case FETCH:
-            return [...posts, action.payload];
+            return [action.payload];
         case CREATE:
             return [...posts, action.payload];
         case UPDATE:

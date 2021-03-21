@@ -7,6 +7,17 @@ export default makeStyles({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     backgroundBlendMode: 'darken',
   },
+  mediaLoad: {
+    height: '70vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundBlendMode: 'darken',
+  },
+  contentLoad: {
+    height: '50vh',
+  },
   fullHeightCard: {
     height: '100%',
   },
@@ -36,16 +47,24 @@ export default makeStyles({
     alignItems: 'flex-end',
     color: 'white',
   },
+  overlay3: {
+    position: 'absolute',
+    top: '20px',
+    right: '20px',
+    color: 'white',
+  },
   grid: {
     display: 'flex',
   },
-  details: {
+  postHeader: {
+    display: 'flex',
+    margin: '15px 20px 0 20px',
+    justifyContent: 'space-between',
+  },
+  tags: {
     display: 'flex',
     justifyContent: 'space-between',
-    margin: '20px',
-  },
-  title: {
-    padding: '0 16px',
+    margin: '0',
   },
   cardActions: {
     padding: '0 16px 8px 16px',

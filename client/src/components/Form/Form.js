@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase  from 'react-file-base64';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import useStyles from './styles';
-import { createPost, updatePost } from '../../actions/posts.js'
+import { createPost, updatePost, getPosts } from '../../actions/posts.js'
 
 const Form = () => {
-    const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
-    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null );
     const classes = useStyles();
     const dispatch = useDispatch();
+    const location = useLocation();
+    const history = useHistory();
+
+    const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: '' });
+    
+    const currentId = location.pathname.replace('/create/','').replace('/create','');
     const user = JSON.parse(localStorage.getItem('profile'));
-    const currentId = null;
+    dispatch(getPosts());
+
+    const post = useSelector((state) => state.posts).filter((post) => post._id === currentId)[0];
 
     useEffect(() => {
-        if(post) setPostData(post);
+        if(post) {
+            setPostData(post);
+            console.log('ran');
+        }
     }, [post])
 
     const handleSubmit = (e) => {
@@ -28,6 +37,7 @@ const Form = () => {
             dispatch(createPost({ ...postData, name: user?.result?.name }));
         }
         clear();
+        history.push('/');
     };
 
     const clear = () => {
@@ -35,11 +45,11 @@ const Form = () => {
         setPostData({ title: '', message: '', tags: '', selectedFile: '' });
     };
 
-    if(!user?.result?.name) {
+    if(user?.result?.accountType !== 'creator') {
         return(
             <Paper className={classes.paper}>
                 <Typography variant="h6" align="center">
-                Please Sign In to create your own memories and like other memories.
+                You do not have permission to create or edit posts.
                 </Typography>
             </Paper>
         )
@@ -48,7 +58,7 @@ const Form = () => {
     return(
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                <Typography variant="h6">{currentId ? 'Editing' : 'Create'} a Memory</Typography>
+                <Typography variant="h6">{currentId ? 'Edit' : 'Create'} a Memory</Typography>
                 <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })}/>
                 <TextField name="message" variant="outlined" label="Message" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })}/>
                 <TextField name="tags" variant="outlined" label="Tags" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}/>

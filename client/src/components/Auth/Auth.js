@@ -59,7 +59,7 @@ const Auth = () => {
     }
 
     const googleFailure= (error) => {
-        console.log(error)
+        console.error(error)
         console.log('Google signin was failed try again')
     }
     
