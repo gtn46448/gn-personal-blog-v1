@@ -7,32 +7,40 @@ import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Moment from 'moment';
+import ReactMarkdown from 'react-markdown';
 
 import Comments from '../Comments/Comments.js';
-import { getPosts, likePost } from '../../actions/posts.js';
+import { getPost, likePost } from '../../actions/posts.js';
 import useStyles from './styles';
 
 const FullPost = () => {
+    const classes = useStyles();
     const location = useLocation();
     const dispatch = useDispatch();
     const currentId = location.pathname.replace('/post/', '');
     const user = JSON.parse(localStorage.getItem('profile'));
+    const [post, setPost] = useState(useSelector((state) => state.posts).filter((post) => post._id === currentId)[0]);
+    const [liked, setLiked] = useState(404);
+    const [likes, setLikes] = useState(post?.likes.length);
 
     useEffect(() => {
-        dispatch(getPosts());
+        getPost(currentId).then((response) => {
+            setPost(response)
+            setLiked(response.likes.find((like) => like === (user?.result?.googleId || user?.result?._id)) ? true : false)
+            setLikes(response.likes.length);
+        });
     },[]);
 
-    const post = useSelector((state) => state.posts).filter((post) => post._id === currentId)[0];
-    const classes = useStyles();
-
     const Likes = () => {
-        if (post.likes.length > 0) {
-          return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
-            ? (
-              <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }</>
-            ) : (
-              <><ThumbUpAltOutlined fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
-            );
+        console.log(`${liked} ${post.likes}`);
+        let likeCount = likes || 0;
+        if (likeCount > 0) {
+            return liked
+                ? (
+                <><ThumbUpAltIcon fontSize="small" />&nbsp;{likeCount > 2 ? `You and ${likeCount - 1} others` : `${likeCount} like${likeCount > 1 ? 's' : ''}` }</>
+                ) : (
+                <><ThumbUpAltOutlined fontSize="small" />&nbsp;{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</>
+                );
         }
     
         return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
@@ -72,12 +80,17 @@ const FullPost = () => {
                         <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag} `)}</Typography>
                     </div>
                 </div>
-                <Button size='small' color='primary' disabled={!user?.result} onClick={()=> dispatch(likePost(post._id))}>
+                <Button size='small' color='primary' disabled={!user?.result || liked === 404} onClick={()=> {
+                        setLikes(liked ? likes - 1 : likes + 1);
+                        setLiked(!liked);
+                        dispatch(likePost(currentId));
+                    }}
+                >
                     <Likes />
                 </Button>
             </div>
             <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
+                <Typography variant='body2' color='textSecondary' component='p'><ReactMarkdown>{post.message}</ReactMarkdown></Typography>
             </CardContent>
             <div>
                 <Comments />

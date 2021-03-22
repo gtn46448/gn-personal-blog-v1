@@ -14,7 +14,8 @@ const Post = ({ post }) => {
                 <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
                 <div className={classes.overlay}>
                     <Typography variant='h6'>{post.title}</Typography>
-                    <Typography variant='body2'>{Moment(post.createdAt).fromNow() + ' | ' + post.name}</Typography>
+                    <Typography variant='body2'>{post.name}</Typography>
+                    <Typography variant='body2'>{`${Moment(post.createdAt).fromNow()} · ${post.likes.length} Likes`}</Typography>
                 </div>
                 <CardContent>
                     <Typography variant='body1' component='p'>{post.message.length > 150 ? `${post.message.slice(0,97)}...` : post.message }</Typography>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, CircularProgress } from '@material-ui/core';
 import FileBase  from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -17,7 +17,10 @@ const Form = () => {
     
     const currentId = location.pathname.replace('/create/','').replace('/create','');
     const user = JSON.parse(localStorage.getItem('profile'));
-    dispatch(getPosts());
+    
+    useEffect(() => {
+        dispatch(getPosts());
+    }, []);
 
     const post = useSelector((state) => state.posts).filter((post) => post._id === currentId)[0];
 
@@ -52,6 +55,12 @@ const Form = () => {
                 You do not have permission to create or edit posts.
                 </Typography>
             </Paper>
+        )
+    }
+
+    if(!post) {
+        return (
+            <CircularProgress />
         )
     }
 

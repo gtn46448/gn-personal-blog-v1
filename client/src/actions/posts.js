@@ -12,11 +12,11 @@ export const getPosts = () => async (dispatch) => {
     }
 };
 
-export const getPost = (id) => async (dispatch) => {
+export const getPost = async (id) => {
     try {
         const { data } = await api.fetchPost(id);
 
-        dispatch({ type: FETCH, payload: data });
+        return data;
     } catch (error) {
         console.error(error);
     }
