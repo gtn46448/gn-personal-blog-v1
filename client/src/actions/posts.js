@@ -1,4 +1,4 @@
-import { FETCH_ALL, FETCH, CREATE, UPDATE, DELETE } from '../constants/actionTypes.js'
+import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes.js'
 import * as api from '../api/index.js';
 
 //Action Creators

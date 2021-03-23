@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import PostMessage from '../models/postMessage.js';
+import PostMessage from '../models/PostMessage.js';
 
 export const getPosts = async (req, res) => {
     try {
-        const postMessages = await PostMessage.find().lean();
-        res.status(200).json(postMessages);
+        const PostMessages = await PostMessage.find().lean();
+        res.status(200).json(PostMessages);
     } catch (error) {
         res.status(404).json({ error: error.message });
     }
@@ -29,7 +29,7 @@ export const createPost = async (req, res) => {
     const newPost = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() });
 
     try {
-        await newPost.save()
+        await newPost.save();
 
         res.status(201).json(newPost);
     } catch (error) {
@@ -75,7 +75,6 @@ export const likePost = async (req, res) => {
 
     try {
         const post = await PostMessage.findById(id).lean();
-
         const index = post.likes.findIndex((id) => id === String(req.userId));
 
         if(index === -1) {

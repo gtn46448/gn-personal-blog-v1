@@ -9,8 +9,10 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Moment from 'moment';
 import ReactMarkdown from 'react-markdown';
 
-import Comments from '../Comments/Comments.js';
+import CommentForm from '../Comments/CommentForm/CommentForm.js';
+import Replies from '../Comments/Replies.js';
 import { getPost, likePost } from '../../actions/posts.js';
+import { getComments } from '../../actions/comments.js';
 import useStyles from './styles';
 
 const FullPost = () => {
@@ -22,6 +24,7 @@ const FullPost = () => {
     const [post, setPost] = useState(useSelector((state) => state.posts).filter((post) => post._id === currentId)[0]);
     const [liked, setLiked] = useState(404);
     const [likes, setLikes] = useState(post?.likes.length);
+    const [commentId, setCommentId] = useState(null);
 
     useEffect(() => {
         getPost(currentId).then((response) => {
@@ -29,10 +32,10 @@ const FullPost = () => {
             setLiked(response.likes.find((like) => like === (user?.result?.googleId || user?.result?._id)) ? true : false)
             setLikes(response.likes.length);
         });
+        getComments(currentId);
     },[]);
 
     const Likes = () => {
-        console.log(`${liked} ${post.likes}`);
         let likeCount = likes || 0;
         if (likeCount > 0) {
             return liked
@@ -75,7 +78,7 @@ const FullPost = () => {
             </div>
             <div className={classes.postHeader}>
                 <div>
-                    <Typography variant='h5'>{post.title}</Typography>
+                    <Typography variant='h4'>{post.title}</Typography>
                     <div className={classes.tags}>
                         <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag} `)}</Typography>
                     </div>
@@ -90,10 +93,11 @@ const FullPost = () => {
                 </Button>
             </div>
             <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'><ReactMarkdown>{post.message}</ReactMarkdown></Typography>
+                <div className={classes.message}><ReactMarkdown>{post.message}</ReactMarkdown></div>
             </CardContent>
             <div>
-                <Comments />
+                <CommentForm parentPostId={post._id} parentId={post._id} commentId={commentId} setCommentId={setCommentId} />
+                <Replies parentId={post._id} />
             </div>
         </Card>
     )

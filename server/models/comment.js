@@ -1,12 +1,11 @@
 import mongoose from 'mongoose';
 
-const postSchema = mongoose.Schema({
-    title: String,
+const commentSchema = mongoose.Schema({
+    parentPost: String,
+    parentComment: String,
     message: String,
     creator: String,
     name: String,
-    tags: [String],
-    selectedFile: String,
     likes: {
         type: [String],
         default: []
@@ -17,4 +16,4 @@ const postSchema = mongoose.Schema({
     }
 });
 
-export default mongoose.model('PostMessage', postSchema);
+export default mongoose.model('PostComment', commentSchema);

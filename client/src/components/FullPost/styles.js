@@ -61,6 +61,10 @@ export default makeStyles({
     margin: '15px 20px 0 20px',
     justifyContent: 'space-between',
   },
+  message: {
+    fontFamily: '\'roboto\', sans-serif',
+    lineHeight: '1.5',
+  },
   tags: {
     display: 'flex',
     justifyContent: 'space-between',

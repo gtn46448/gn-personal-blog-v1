@@ -27,7 +27,6 @@ const Form = () => {
     useEffect(() => {
         if(post) {
             setPostData(post);
-            console.log('ran');
         }
     }, [post])
 
