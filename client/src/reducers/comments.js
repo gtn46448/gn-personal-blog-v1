@@ -1,6 +1,6 @@
 import { FETCH_COMMENTS, CREATE_COMMENT, UPDATE_COMMENT, DELETE_COMMENT } from '../constants/actionTypes.js'
 
-const postReducer = (comments = [], action) => {
+const commentReducer = (comments = [], action) => {
     switch(action.type) {
         case FETCH_COMMENTS:
             return action.payload;
@@ -15,4 +15,4 @@ const postReducer = (comments = [], action) => {
     }
 }
 
-export default postReducer;
+export default commentReducer;

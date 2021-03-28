@@ -6,6 +6,7 @@ const commentSchema = mongoose.Schema({
     message: String,
     creator: String,
     name: String,
+    imageUrl: String,
     likes: {
         type: [String],
         default: []

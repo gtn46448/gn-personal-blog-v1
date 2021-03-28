@@ -26,11 +26,11 @@ export default makeStyles((theme) => ({
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
   },
   userName: {
     display: 'flex',
     alignItems: 'center',
+    margin: '0 45px 0 20px',
   },
   brandContainer: {
     display: 'flex',

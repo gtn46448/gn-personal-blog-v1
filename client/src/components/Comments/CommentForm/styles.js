@@ -10,6 +10,11 @@ export default makeStyles((theme) => ({
   },
   commentMain: {
     margin: '20px',
+    display: 'grid',
+    gridTemplateColumns: '45px 1fr',
+  },
+  edit: {
+    margin: '20px',
   },
   form: {
     display: 'flex',

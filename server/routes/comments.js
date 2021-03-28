@@ -5,7 +5,7 @@ import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.get('/:id', getComments);
+router.get('/:parentId', getComments);
 router.post('/', auth, createComment);
 router.patch('/:id', auth, updateComment);
 router.delete('/:id', auth, deleteComment);

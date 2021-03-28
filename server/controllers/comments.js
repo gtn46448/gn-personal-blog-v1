@@ -6,7 +6,7 @@ export const getComments = async (req,res) => {
 
     try {
         const comments = await PostComment.find({ parentPost: parentId }).lean();
-        res.status(200).json({ comments });
+        res.status(200).json(comments);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -32,7 +32,7 @@ export const updateComment = async (req,res) => {
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('no comment with that id');
 
     try {
-        const updatedComment = await PostComment.findByIdAndUpdate(_id, { ...comment, _id }, { new: true });
+        const updatedComment = await PostComment.findByIdAndUpdate(_id, { ...comment, _id, createdAt: new Date().toISOString() }, { new: true });
 
         res.json(updatedComment);
     } catch (error) {
@@ -62,7 +62,7 @@ export const likeComment = async (req,res) => {
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('no comment with that id');
 
     try {
-        const comment = PostComment.findById(id);
+        const comment = await PostComment.findById(id);
         const index = comment.likes.findIndex((id) => id === String(req.userId));
 
         if(index === -1) {

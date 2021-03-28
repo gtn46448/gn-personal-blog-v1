@@ -5,5 +5,5 @@ import comments from './comments.js'
 import auth from './auth.js';
 
 export default combineReducers({
-    posts, auth, comments
+    posts, comments, auth
 })

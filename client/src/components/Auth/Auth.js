@@ -86,11 +86,11 @@ const Auth = () => {
                             isSignUp && <Input name = "confirmPassword" label="Confirm Password" handleChange={handleChange} type={showPassword ? "text" : "password"} />
                         }
                     </Grid>
-                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>{isSignUp ? 'Sign Up' : 'Sign In'}</Button>
+                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>{isSignUp ? 'Sign Up' : 'Log In'}</Button>
                     {
                         !isSignUp && (
                             <GoogleLogin 
-                                clientId="753775859921-4eks4guhnm75osrr4o6bk04b4ecuflia.apps.googleusercontent.com"
+                                clientId="882530831718-27a9cdss4mpi899q94uf7qh7j4d0c01o.apps.googleusercontent.com"
                                 render={(renderProps) => (
                                     <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disable={renderProps.disable} startIcon={<Icon />} variant="contained">
                                         Google Sign in

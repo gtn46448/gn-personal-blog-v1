@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const postSchema = mongoose.Schema({
     title: String,
+    description: String,
     message: String,
     creator: String,
     name: String,
@@ -17,4 +18,4 @@ const postSchema = mongoose.Schema({
     }
 });
 
-export default mongoose.model('PostMessage', postSchema);
+export default mongoose.model('BlogPost', postSchema);
