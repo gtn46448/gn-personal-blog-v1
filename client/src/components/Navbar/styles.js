@@ -21,7 +21,6 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '400px',
   },
   profile: {
     display: 'flex',
@@ -40,5 +39,8 @@ export default makeStyles((theme) => ({
     marginRight: '15px', 
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+  },
+  navButton: {
+    marginLeft: '10px',
   },
 }));

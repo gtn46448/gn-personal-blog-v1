@@ -71,6 +71,6 @@ export default makeStyles({
     margin: '0',
   },
   replies: {
-    paddingRight: '20px',
+    padding: '0 20px 20px 0',
   },
 });
