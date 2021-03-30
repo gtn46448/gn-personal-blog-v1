@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Avatar } from '@material-ui/core';
+import { TextField, Button, Typography, Avatar, useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@material-ui/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
@@ -9,6 +10,8 @@ const CommentForm = ({ parentPostId, parentId, commentId, setShowForm }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const isReply = (parentPostId !== parentId) ? true : false;
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
     const [postData, setPostData] = useState({ message: '' });
     
@@ -51,10 +54,10 @@ const CommentForm = ({ parentPostId, parentId, commentId, setShowForm }) => {
 
     return(
         <div className={commentId ? classes.edit : classes.commentMain}>
-            {!commentId &&
+            {!commentId && !isSmall ?
                 <div className={classes.commentIcon}>
                     <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>
-                </div>
+                </div> : null
             }
             <div className={classes.commentContent}>
                 <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>

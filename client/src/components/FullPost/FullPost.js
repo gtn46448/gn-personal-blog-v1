@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardMedia, Button, Typography, CircularProgress } from '@material-ui/core';
+import { Card, CardContent, CardMedia, Button, Typography, CircularProgress, Fade } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, Link } from 'react-router-dom';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -68,7 +68,7 @@ const FullPost = () => {
                 <Typography variant='h3'>{post.title}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <Typography variant='h6'>{Moment(post.createdAt).fromNow() + ' | ' + post.name}</Typography>
+                <Typography variant='h6'>{`${Moment(post.createdAt).fromNow()} · ${post.name}`}</Typography>
             </div>
             <div className={classes.overlay3}>
                 {(user?.result?.googleId === post.creator || user?.result?._id === post.creator) && (
@@ -102,7 +102,7 @@ const FullPost = () => {
             <CardContent>
                 <div className={classes.message}><ReactMarkdown>{post.message}</ReactMarkdown></div>
             </CardContent>
-            <div>
+            <div className={classes.replies}>
                 <CommentForm parentPostId={post._id} parentId={post._id} />
                 <Replies parentId={post._id} />
             </div>

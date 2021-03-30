@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import BlogPost from '../models/BlogPost.js';
+import BlogPost from '../models/blogPost.js';
 
 export const getPosts = async (req, res) => {
     try {

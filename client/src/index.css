@@ -4,7 +4,7 @@
 }
 body {
     background-color: #ffffff;
-    background-image: url(./theme/background.svg);
+    background-image: url(./resources/background.svg);
     background-attachment: fixed;
     background-size: cover;
 }

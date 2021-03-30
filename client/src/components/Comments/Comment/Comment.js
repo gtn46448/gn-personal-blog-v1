@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Typography, Avatar, Button } from '@material-ui/core';
+import { Typography, Avatar, Button, useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpOutlined';
@@ -15,8 +16,11 @@ import useStyles from './styles';
 const Comment = ({ comment }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [expanded, setExpanded] = useState(true);
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
     const user = JSON.parse(localStorage.getItem('profile'));
+
+    const [expanded, setExpanded] = useState(true);
     const [liked, setLiked] = useState(comment.likes.find((like) => like === (user?.result?.googleId || user?.result?._id)) ? true : false);
     const [likes, setLikes] = useState(comment.likes.length);
     const [showReplyForm, setShowReplyForm] = useState(false);
@@ -42,12 +46,12 @@ const Comment = ({ comment }) => {
 
     return (
         <div className={classes.commentMain}>
-            <Avatar className={`${classes.purple} ${!expanded ? classes.avatarSmall : null}`} alt={comment.name} src={comment.imageUrl}>{comment.name.charAt(0)}</Avatar>
+            {isSmall? null: <Avatar className={`${classes.purple} ${!expanded ? classes.avatarSmall : null}`} alt={comment.name} src={comment.imageUrl}>{comment.name.charAt(0)}</Avatar>}
             <div className={classes.commentContent}>
-                <div className={classes.commentInfo} onClick={handleChange}>
-                    <div style={{display: 'flex', alignItems: 'center'}}>
-                        <Typography className={classes.name}>{comment.name}</Typography>
-                        <Typography variant='subtitle2' color='textSecondary'>&nbsp;{`· ${Moment(comment.createdAt).fromNow()}`}</Typography>
+                <div className={classes.commentBar} onClick={handleChange}>
+                    <div className={classes.commentInfo}>
+                        <Typography>{comment.name}&nbsp;&nbsp;&nbsp;</Typography>
+                        <Typography className={classes.commentPostTime} variant='subtitle2' color='textSecondary'>{`${Moment(comment.createdAt).fromNow()}`}</Typography>
                     </div>
                     <ExpandMoreIcon className={expanded ? classes.dropDownOpen : null} />
                 </div>

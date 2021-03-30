@@ -19,6 +19,10 @@ app.use('/posts', postRoutes);
 app.use('/users', userRoutes);
 app.use('/comments', commentRoutes);
 
+app.get('/', (req,res) => {
+    res.send('Welcome to GNBlogV1 API');
+})
+
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })

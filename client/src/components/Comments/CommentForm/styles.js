@@ -12,6 +12,9 @@ export default makeStyles((theme) => ({
     margin: '20px',
     display: 'grid',
     gridTemplateColumns: '45px 1fr',
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: '1fr',
+    },
   },
   edit: {
     margin: '20px',

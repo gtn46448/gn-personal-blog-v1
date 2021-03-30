@@ -11,7 +11,7 @@ const Replies = ({ parentId }) => {
     const comments = useSelector((state) => state.comments.filter(comment => comment.parentComment === parentId));
 
     return(
-        <Grid className={classes.container} container>
+        <Grid className={classes.repliesContainer} container>
             {
                 comments.map((comment) => (
                     <Grid key={comment._id} item xs={12}>

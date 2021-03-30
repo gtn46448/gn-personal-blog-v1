@@ -9,14 +9,14 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10px 50px',
+    padding: '10px 20px',
+    [theme.breakpoints.down('sm')]: {
+      padding: '10px 20px',
+    },
   },
-  heading: {
-    color: '#5f93c9',
-    textDecoration: 'none',
-  },
-  image: {
-    marginLeft: '15px',
+  logo: {
+    height: '50px',
+    marginTop: '10px',
   },
   toolbar: {
     display: 'flex',
@@ -30,13 +30,14 @@ export default makeStyles((theme) => ({
   userName: {
     display: 'flex',
     alignItems: 'center',
-    margin: '0 45px 0 20px',
+    margin: '0 25px 0 0px',
   },
   brandContainer: {
     display: 'flex',
     alignItems: 'center',
   },
   purple: {
+    marginRight: '15px', 
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },

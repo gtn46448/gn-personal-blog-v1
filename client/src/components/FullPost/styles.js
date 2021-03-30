@@ -70,9 +70,7 @@ export default makeStyles({
     justifyContent: 'space-between',
     margin: '0',
   },
-  cardActions: {
-    padding: '0 16px 8px 16px',
-    display: 'flex',
-    justifyContent: 'space-between',
+  replies: {
+    paddingRight: '20px',
   },
 });

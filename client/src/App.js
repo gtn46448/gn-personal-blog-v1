@@ -9,12 +9,12 @@ import Auth from './components/Auth/Auth.js';
 import Form from './components/Form/Form.js';
 import FullPost from './components/FullPost/FullPost.js';
 
-import altTheme from './theme/altTheme.js';
+import altTheme from './resources/altTheme.js';
 
 const App = () => {
     return (
-        <BrowserRouter>
-             <ThemeProvider theme={altTheme}>
+        <ThemeProvider theme={altTheme}>
+            <BrowserRouter>
                 <Container maxwidth="lg">
                     <Navbar />
                     <Switch>
@@ -24,8 +24,8 @@ const App = () => {
                         <Route path = "/post/:id" component={FullPost} />
                     </Switch>
                 </Container>
-            </ThemeProvider>
-        </BrowserRouter>
+            </BrowserRouter>
+        </ThemeProvider>
     );
 }
 
